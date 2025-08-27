@@ -1,4 +1,6 @@
 import React from "react";
+import Hello from "./components/Hello.jsx"; // 컴포넌트 폴더 안에 있는 Hello.jsx 불러오기
+import Bye from "./components/Bye" // 리액트에서는 확장자 생략 가능, 바닐라 자바 스크립트에서는 불가능
 
 /*
     jsx : 리액트에서 사용하는 특수한 js문법, 태그를 그대로 쓰면 알아서 변환
@@ -13,8 +15,6 @@ import React from "react";
 
 function App() {
 
-    // const $h1 = document.createElement(`h1`); <- 리액트에선 이렇게 할 필요가 없다.
-    // const $h1 = React.createElement(`h1`, null, `잘가 리액트!`) // 이게 원문이다.
     const $h1 = <h1 className="title">안녕 리액트!</h1>; // jsx의 특수 문법, 리액트에선 class는 className이라고 써야 된다. 실제로 랜더링 될 때는 class로 된다.
 
     const text = `Vanilla Javascript!`;
@@ -26,15 +26,10 @@ function App() {
         //<div>
         // <> 문법 때문에 어쩔 수 없이 하나로 감싸야 돼서 쓴 Fragment
         <>
-            <header>
-                {$h1} {/*다른 테그 안에 변수 태그를 넣을 때는 {}로 감싸야 된다.*/}
-                <h2>{text}</h2> {/*그냥 중괄호로 안에 변수 이름을 넣어야 한다.*/}
-                <label htmlFor="nameInput">이름: </label>
-                <input id="nameInput" type="text"/> {/*닫는 태그 없는 애들은 />로 닫아줘야 한다.*/}
-            </header>
-            <main>
-                이곳은 메인 컨텐츠 입니다.
-            </main>
+            {/*new Hello()가 아닌*/}
+            <Hello />
+            <Bye />
+            <Hello />
         </>
         //</div>
     )
