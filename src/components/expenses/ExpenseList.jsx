@@ -2,9 +2,9 @@ import React from 'react';
 import './ExpenseList.css';
 import ExpenseItem from './ExpenseItem.jsx';
 
-const ExpenseList = () => {
+const ExpenseList = ({expenses: expenseList}) => {
 
-    const expenseList = [
+/*    const expenseList = [
         {
             title: `피자`,
             price: 20000,
@@ -20,7 +20,7 @@ const ExpenseList = () => {
             price: 9000,
             date: new Date(2025, 1, 19)
         }
-    ];
+    ];*/
 
     return (
         <div className='expenses'>
