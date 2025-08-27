@@ -1,6 +1,7 @@
 import React from 'react';
 import './ExpenseList.css';
 import ExpenseItem from './ExpenseItem.jsx';
+import Card from "../ui/Card.jsx";
 
 const ExpenseList = ({expenses: expenseList}) => {
 
@@ -23,7 +24,8 @@ const ExpenseList = ({expenses: expenseList}) => {
     ];*/
 
     return (
-        <div className='expenses'>
+        // <div className='expenses'>
+        <Card className='expenses'>
             {/*<ExpenseItem*/}
             {/*    title='피자'*/}
             {/*    price={20000}*/}
@@ -43,7 +45,8 @@ const ExpenseList = ({expenses: expenseList}) => {
             <ExpenseItem expense={expenseList[0]} />
             <ExpenseItem expense={expenseList[1]} />
             <ExpenseItem expense={expenseList[2]} />
-        </div>
+        </Card>
+        // </div>
     );
 };
 
