@@ -11,6 +11,25 @@ const ExpenseItem = ({expense/*title, price, date*/})/*(props)*//*title이라고
 
     const {title, date, price} = expense;
 
+/*
+    // 애초에 버튼을 잡아오지 못한다. 그리고 버튼 하나 당 이벤트가 List의 갯수 만큼 걸린다.
+    // 그래서 인라인 방식으로 onClick으로 걸어야 한다.
+    const $btn1 = document.getElementById('btn1');
+    console.log(`btn1: `,$btn1 );
+
+    // 버튼 이벤트 보다 return이 나중에 실행 되기 때문에 btn1의 값은 null이 된다.
+    $btn1.addEventListener('click', e => {
+        alert(`click!`);
+    });
+*/
+
+    // 이벤트 핸들러, 밖에서 이벤트 핸들러를 정의해도 되고 인라인 방식으로 안에 정의해도 된다.
+    // onclick과 onClick은 다른다 onClick은 jsx 문법으로 함수이다. addEventListener로 변환되어 들어간다.
+    // 특정 dom에 걸 때는 return 전에 수행 되기 때문에 걸리지 않는다. body나 이미 정의 되어 있는 것에는 가능.
+    const clickHandler = e => {
+        alert(`click!`)
+    };
+
     return (
         <div className='expense-item'>
             {/*<div>2025-08-24</div>*/}
@@ -22,6 +41,9 @@ const ExpenseItem = ({expense/*title, price, date*/})/*(props)*//*title이라고
                 {/*<div className='expense-item__price'>10000원</div>*/}
                 <div className='expense-item__price'>{price}원</div>
             </div>
+
+            <button id='btn1' onClick={clickHandler}>버튼 1</button>
+            <button id='btn2' onDoubleClick={e => alert(`더블 클릭!`)}>버튼 2</button>
         </div>
     );
 };
