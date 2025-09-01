@@ -3,6 +3,7 @@ import ExpenseItem from "./components/expenses/ExpenseItem.jsx";
 import ExpenseList from "./components/expenses/ExpenseList.jsx";
 import Card from "./components/ui/Card.jsx";
 import Counter from "./components/Counter.jsx";
+import NewExpense from "./components/new-expense/NewExpense.jsx";
 
 // 리액트의 props의 한계점 : 단방향이다. (위에서 아래로) 그래서 서버에서 날라오는 데이터들은 위에서 처리하는 게 좋다.
 const App = () => {
@@ -42,8 +43,9 @@ const App = () => {
             {/*    date={new Date(2025, 1, 19)}*/}
             {/*/>*/}
 
-            <Counter />
+            {/*<Counter />*/}
 
+            <NewExpense />
             <ExpenseList expenses={expenseList} />
 
             {/*태그를 전달하고 싶을 때는 컴포넌트 열고 닫아서 사이에 태그를 넣는다. props의 child*/}
