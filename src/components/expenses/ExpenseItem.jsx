@@ -19,8 +19,12 @@ const ExpenseItem = ({expense/*title, price, date*/})/*(props)*//*title이라고
         첫번째 요소는 관리할 상태값의 초기값
         두번째 요소는 해당 상태값을 변경할 때 사용하는 setter함수
     */
-    const x = useState(title);
-    console.log(`x: `, x[0]);
+    // const x = useState(title);
+    const [itemTitle, setItemTitle] = useState(title);
+    // console.log(`x: `, x);
+
+    // 여기서 로그를 찍어야 변경 후 데이터가 제대로 찍힌다.
+    console.log(`변경 후: ${itemTitle}`);
 
     // 원화 표기법으로 변환
     // 정적인 변환
@@ -45,13 +49,15 @@ const ExpenseItem = ({expense/*title, price, date*/})/*(props)*//*title이라고
         // 리액트는 변수값이 바뀐다고 화면을 다시 그리지 않는다.
         // 리액트에게 리랜더링(동적인 변환)을 명령하려면 상태값으로 처리해야 된다.
         // console.log(`변경 전: ${ title }`);
-        console.log(`변경 전: ${x[0]}`);
+        console.log(`변경 전: ${itemTitle}`);
         // title = `햄버거`;
         // x[0] = `햄버거`;
         // 상태값을 직접 변경하지 않고 setter를 통해 변경해야 된다.
-        x[1](`햄버거`);
+        setItemTitle(`햄버거`);
         // console.log(`변경 후: ${ title }`);
-        console.log(`변경 후: ${x[0]}`);
+
+        // 변경 전과 변경 후가 아직은 같은데 바로 실시간 변경이 되지 않고 다음 번 렌더링을 할 때 적용이 된다.
+        // console.log(`변경 후: ${itemTitle}`);
     };
 
     return (
@@ -62,7 +68,8 @@ const ExpenseItem = ({expense/*title, price, date*/})/*(props)*//*title이라고
             <div className='expense-item__description'>
                 {/*<h2>점심밥</h2>*/}
                 {/*<h2>{title}</h2>*/}
-                <h2>{x[0]}</h2>
+                {/*<h2>{x[0]}</h2>*/}
+                <h2>{itemTitle}</h2>
                 {/*<div className='expense-item__price'>10000원</div>*/}
                 <div className='expense-item__price'>{formatPrice}원</div>
             </div>
