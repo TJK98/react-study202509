@@ -3,10 +3,21 @@ import './ExpenseForm.css';
 
 const ExpenseForm = () => {
 
+    // console.log(`RENDERING`);
+
     // 입력값을 단일 값 상태관리
-    const [title, setTitle] = useState(``);
-    const [price, setPrice] = useState();
-    const [date, setDate] = useState(null);
+    // const [title, setTitle] = useState(``);
+    // const [price, setPrice] = useState();
+    // const [date, setDate] = useState(null);
+
+    const initUserInputState = {
+        title: ``,
+        price: 0,
+        date: null
+    };
+
+    // 입력값을 객체로 한번에 상태관리
+    const [userInput, setUserInput] = useState(initUserInputState);
 
     // 오늘 날짜를 YYYY-MM-DD 형식으로 가져오는 함수
     const getTodayDate = () => {
@@ -36,9 +47,12 @@ const ExpenseForm = () => {
         //     date: date
         // };
 
-        const payload = { title, price, date };
+        // const payload = { title, price, date };
 
-        console.log(payload);
+        // console.log(payload);
+
+        // userInput 자체가 payload이기 때문에 payload를 따로 만들지 않아도 된다.
+        console.log(`userInput: `, userInput);
 
         // 입력창 초기화
         // document.querySelectorAll(`input`).forEach($input => $input.value= ``);
@@ -47,10 +61,50 @@ const ExpenseForm = () => {
             input태그에다가 값을 입력하면 -> 상태변수에 저장됨  (단방향)
             상태변수의 값을 바꾸면 -> input이 갱신된다?  (X)    (양방향)
         */
-        setTitle(``);
-        setPrice(0);
-        setDate(null);
+        // setTitle(``);
+        // setPrice(0);
+        // setDate(null);
+
+        setUserInput(initUserInputState)
     };
+
+    // 제목 입력 이벤트
+    const titleChangeHandler = e => {
+        /*
+             리액트는 기존 객체에서 프로퍼티 값만을 바꾸면 상태 변경을 감지 하지 못하여 리랜더링을 수행하지 않는다.
+         */
+        // userInput.title = e.target.value
+
+        // 주소값이 다른 새로운 객체를 만들어서 넣어야 리액트가 상태 변경을 감지한다.
+        const newUserInput = {
+            // 기존 userInput 갖고 있는 값들을 세팅 해줘야 된다.
+            // price: userInput.price,
+            // date: userInput.date,
+            ...userInput, // ...으로 spread 하여 기존 값들은 다 복사하고 title 값만 바꿔주면 된다. 위 존재 해야 된다.
+            title: e.target.value
+        }
+        setUserInput(newUserInput);
+
+        // console.log(userInput);
+    };
+
+    // 가격 입력 이벤트, 새 객체 넣기
+    const priceChangeHandler = e => setUserInput({
+        // 기존 userInput 갖고 있는 값들을 세팅 해줘야 된다.
+        // title: userInput.title,
+        // date: userInput.date,
+        ...userInput, // ...으로 spread 하여 기존 값들은 다 복사하고 price 값만 바꿔주면 된다. 위 존재 해야 된다.
+        price: +e.target.value
+    });
+
+    // 날짜 입력 이벤트, 새 객체 넣기
+    const dateChangeHandler = e => setUserInput({
+        // 기존 userInput 갖고 있는 값들을 세팅 해줘야 된다.
+        // title: userInput.title,
+        // price: userInput.price,
+        ...userInput, // ...으로 spread 하여 기존 값들은 다 복사하고 date 값만 바꿔주면 된다. 위 존재 해야 된다.
+        date: e.target.value,
+    });
 
     return (
         <form onSubmit={handleSubmit}>
@@ -59,8 +113,8 @@ const ExpenseForm = () => {
                     <label>Title</label>
                     <input
                         type='text'
-                        onInput={e => setTitle(e.target.value)}
-                        value={title}
+                        onInput={titleChangeHandler}
+                        value={userInput.title}
                     />
                 </div>
                 <div className='new-expense__control'>
@@ -69,8 +123,8 @@ const ExpenseForm = () => {
                         type='number'
                         min='100'
                         step='100'
-                        onInput={e => setPrice(+e.target.value)}
-                        value={price || ''} // price가 falsy일 경우 빈 문자열
+                        onInput={priceChangeHandler}
+                        value={userInput.price || ''} // price가 falsy일 경우 빈 문자열
                     />
                 </div>
                 <div className='new-expense__control'>
@@ -79,8 +133,8 @@ const ExpenseForm = () => {
                         type='date'
                         min='2019-01-01'
                         max={getTodayDate()}
-                        onInput={e => setDate(+e.target.value)}
-                        value={date ?? ''} // date가 null 이면 빈 문자열
+                        onInput={dateChangeHandler}
+                        value={userInput.date ?? ''} // date가 null 이면 빈 문자열
                     />
                 </div>
             </div>
