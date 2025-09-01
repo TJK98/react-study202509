@@ -39,6 +39,17 @@ const ExpenseForm = () => {
         const payload = { title, price, date };
 
         console.log(payload);
+
+        // 입력창 초기화
+        // document.querySelectorAll(`input`).forEach($input => $input.value= ``);
+        // 리액트에선 이렇게 하지 않는다.
+        /*
+            input태그에다가 값을 입력하면 -> 상태변수에 저장됨  (단방향)
+            상태변수의 값을 바꾸면 -> input이 갱신된다?  (X)    (양방향)
+        */
+        setTitle(``);
+        setPrice(0);
+        setDate(null);
     };
 
     return (
@@ -46,7 +57,11 @@ const ExpenseForm = () => {
             <div className='new-expense__controls'>
                 <div className='new-expense__control'>
                     <label>Title</label>
-                    <input type='text' onInput={e => setTitle(e.target.value)} />
+                    <input
+                        type='text'
+                        onInput={e => setTitle(e.target.value)}
+                        value={title}
+                    />
                 </div>
                 <div className='new-expense__control'>
                     <label>Price</label>
@@ -55,6 +70,7 @@ const ExpenseForm = () => {
                         min='100'
                         step='100'
                         onInput={e => setPrice(+e.target.value)}
+                        value={price || ''} // price가 falsy일 경우 빈 문자열
                     />
                 </div>
                 <div className='new-expense__control'>
@@ -64,6 +80,7 @@ const ExpenseForm = () => {
                         min='2019-01-01'
                         max={getTodayDate()}
                         onInput={e => setDate(+e.target.value)}
+                        value={date ?? ''} // date가 null 이면 빈 문자열
                     />
                 </div>
             </div>
