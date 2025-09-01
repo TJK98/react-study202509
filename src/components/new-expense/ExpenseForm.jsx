@@ -76,35 +76,53 @@ const ExpenseForm = () => {
         // userInput.title = e.target.value
 
         // 주소값이 다른 새로운 객체를 만들어서 넣어야 리액트가 상태 변경을 감지한다.
-        const newUserInput = {
-            // 기존 userInput 갖고 있는 값들을 세팅 해줘야 된다.
-            // price: userInput.price,
-            // date: userInput.date,
-            ...userInput, // ...으로 spread 하여 기존 값들은 다 복사하고 title 값만 바꿔주면 된다. 위 존재 해야 된다.
+        // const newUserInput = {
+        //     // 기존 userInput 갖고 있는 값들을 세팅 해줘야 된다.
+        //     // price: userInput.price,
+        //     // date: userInput.date,
+        //     ...userInput, // ...으로 spread 하여 기존 값들은 다 복사하고 title 값만 바꿔주면 된다. 위 존재 해야 된다.
+        //     title: e.target.value
+        // }
+        // setUserInput(newUserInput);
+
+        // 동시성 문제 해결을 위한 안전한 방법
+        setUserInput(prevUserInput => ({
+            ...prevUserInput,
             title: e.target.value
-        }
-        setUserInput(newUserInput);
+        }));
 
         // console.log(userInput);
     };
 
-    // 가격 입력 이벤트, 새 객체 넣기
-    const priceChangeHandler = e => setUserInput({
-        // 기존 userInput 갖고 있는 값들을 세팅 해줘야 된다.
-        // title: userInput.title,
-        // date: userInput.date,
-        ...userInput, // ...으로 spread 하여 기존 값들은 다 복사하고 price 값만 바꿔주면 된다. 위 존재 해야 된다.
-        price: +e.target.value
-    });
+    // // 가격 입력 이벤트, 새 객체 넣기
+    // const priceChangeHandler = e => setUserInput({
+    //     // 기존 userInput 갖고 있는 값들을 세팅 해줘야 된다.
+    //     // title: userInput.title,
+    //     // date: userInput.date,
+    //     ...userInput, // ...으로 spread 하여 기존 값들은 다 복사하고 price 값만 바꿔주면 된다. 위 존재 해야 된다.
+    //     price: +e.target.value
+    // });
 
-    // 날짜 입력 이벤트, 새 객체 넣기
-    const dateChangeHandler = e => setUserInput({
-        // 기존 userInput 갖고 있는 값들을 세팅 해줘야 된다.
-        // title: userInput.title,
-        // price: userInput.price,
-        ...userInput, // ...으로 spread 하여 기존 값들은 다 복사하고 date 값만 바꿔주면 된다. 위 존재 해야 된다.
+    // 동시성 문제 해결을 위한 안전한 방법
+    const priceChangeHandler = e => setUserInput(prev => ({
+        ...prev,
+        price: +e.target.value
+    }));
+
+    // // 날짜 입력 이벤트, 새 객체 넣기
+    // const dateChangeHandler = e => setUserInput({
+    //     // 기존 userInput 갖고 있는 값들을 세팅 해줘야 된다.
+    //     // title: userInput.title,
+    //     // price: userInput.price,
+    //     ...userInput, // ...으로 spread 하여 기존 값들은 다 복사하고 date 값만 바꿔주면 된다. 위 존재 해야 된다.
+    //     date: e.target.value,
+    // });
+
+    // 동시성 문제 해결을 위한 안전한 방법
+    const dateChangeHandler = e => setUserInput(prev => ({
+        ...prev,
         date: e.target.value,
-    });
+    }))
 
     return (
         <form onSubmit={handleSubmit}>

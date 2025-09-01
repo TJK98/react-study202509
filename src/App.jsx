@@ -1,6 +1,7 @@
 import React from "react";
 import ExpenseList from "./components/expenses/ExpenseList.jsx";
 import NewExpense from "./components/new-expense/NewExpense.jsx";
+import Counter from "./components/Counter.jsx";
 
 // 리액트의 props의 한계점 : 단방향이다. (위에서 아래로) 그래서 서버에서 날라오는 데이터들은 위에서 처리하는 게 좋다.
 const App = () => {
@@ -40,7 +41,7 @@ const App = () => {
             {/*    date={new Date(2025, 1, 19)}*/}
             {/*/>*/}
 
-            {/*<Counter />*/}
+            <Counter />
 
             {/*<CheckBoxStyle />*/}
             <NewExpense />
