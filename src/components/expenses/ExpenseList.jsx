@@ -3,6 +3,7 @@ import './ExpenseList.css';
 import ExpenseItem from './ExpenseItem.jsx';
 import Card from "../ui/Card.jsx";
 import ExpenseFilter from "./ExpenseFilter.jsx";
+import ExpenseChart from "../chart/ExpenseChart.jsx";
 
 const ExpenseList = ({expenses: expenseList}) => {
 
@@ -86,6 +87,8 @@ const ExpenseList = ({expenses: expenseList}) => {
             {/*<ExpenseItem expense={expenseList[0]} />*/}
             {/*<ExpenseItem expense={expenseList[1]} />*/}
             {/*<ExpenseItem expense={expenseList[2]} />*/}
+
+            <ExpenseChart expenses={filteredExpenses} />
 
             {/*동적 리스트 랜더링: 객체 안에 배열을 넣어서 그대로 랜더링도 가능하다*/}
             {
