@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './ExpenseList.css';
 import ExpenseItem from './ExpenseItem.jsx';
 import Card from "../ui/Card.jsx";
@@ -24,11 +24,28 @@ const ExpenseList = ({expenses: expenseList}) => {
         }
     ];*/
 
+    const [year, setYear] = useState(new Date().getFullYear().toString());
+
     // ExpenseFilter.jsx에서 선택한 연도 값을 ExpenseList.jsx로 끌어올려서 출력
     // 함수를 만들어서 전달해줘야 한다.
     const onFilterChange = (filteredYear) => {
         console.log(`선택된 연도: ${filteredYear}`);
+        setYear(filteredYear);
     }
+
+    // 반복문을 통해 컴포넌트 배열을 리턴하는 함수
+    // const foo = () => {
+    //     // const arr = [];
+    //     // for (const ex of expenseList) {
+    //     //     arr.push(<ExpenseItem expense={ex} />);
+    //     // }
+    //     // return arr;
+    //
+    //     // mapping을 하는 것과 같은 함수
+    //     return expenseList.map(ex => <ExpenseItem expense={ex} />);
+    // };
+    // 화살표 함수로 리팩토링
+    // const foo = () => expenseList.map(ex => <ExpenseItem expense={ex} />);
 
     return (
         // <div className='expenses'>
@@ -51,9 +68,27 @@ const ExpenseList = ({expenses: expenseList}) => {
 
             <ExpenseFilter onChangeFilter={onFilterChange} />
 
-            <ExpenseItem expense={expenseList[0]} />
-            <ExpenseItem expense={expenseList[1]} />
-            <ExpenseItem expense={expenseList[2]} />
+            {/*<ExpenseItem expense={expenseList[0]} />*/}
+            {/*<ExpenseItem expense={expenseList[1]} />*/}
+            {/*<ExpenseItem expense={expenseList[2]} />*/}
+
+            {/*동적 리스트 랜더링: 객체 안에 배열을 넣어서 그대로 랜더링도 가능하다*/}
+            {
+                // [
+                //     <p>Hi</p>
+                //     , <span>Hello</span>
+                //     , <h3>Bye</h3>
+                // ]
+
+                // foo()
+
+                // 직접 함수를 안에 넣는 것도 가능하다.
+                // expenseList.map(ex => <ExpenseItem expense={ex} />)
+
+                expenseList
+                    .filter(ex => ex.date.getFullYear().toString() === year)
+                    .map(ex => <ExpenseItem expense={ex} />)
+            }
         </Card>
         // </div>
     );

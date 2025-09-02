@@ -8,18 +8,23 @@ const App = () => {
         {
             title: `피자`,
             price: 20000,
-            date: new Date(2025, 7, 13)
+            date: new Date(2022, 7, 13)
         },
         {
             title: `치킨`,
             price: 18000,
-            date: new Date(2025, 8, 7)
+            date: new Date(2023, 8, 7)
         },
         {
             title: `간짜장`,
             price: 9000,
+            date: new Date(2024, 1, 19)
+        },
+        {
+            title: `햄버거`,
+            price: 6000,
             date: new Date(2025, 1, 19)
-        }
+        },
     ];
 
     // 상향식 데이터 전달을 위해 하위 컴포넌트에게 함수 하나를 내려준다.
