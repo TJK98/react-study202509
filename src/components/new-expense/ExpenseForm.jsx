@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './ExpenseForm.css';
 
-const ExpenseForm = () => {
+const ExpenseForm = ({ onAdd }) => {
 
     // console.log(`RENDERING`);
 
@@ -53,6 +53,9 @@ const ExpenseForm = () => {
 
         // userInput 자체가 payload이기 때문에 payload를 따로 만들지 않아도 된다.
         console.log(`userInput: `, userInput);
+
+        // 상위 컴포넌트 (App.jsx -> NewExpense.jsx)가 내려준 onAddExpense 함수를 onSave -> onAdd로 내려 받음
+        onAdd(userInput); // 자신이 갖고 있는 userInput을 부모가 갖고 있는 onAddExpense 함수에게 파라미터로 전달
 
         // 입력창 초기화
         // document.querySelectorAll(`input`).forEach($input => $input.value= ``);
