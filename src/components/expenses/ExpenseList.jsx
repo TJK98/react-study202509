@@ -87,7 +87,8 @@ const ExpenseList = ({expenses: expenseList}) => {
 
                 expenseList
                     .filter(ex => ex.date.getFullYear().toString() === year)
-                    .map(ex => <ExpenseItem expense={ex} />)
+                    // map으로 동적 리스트 렌더링을 할 때 key 값을 넣어줘야 한다. 벡앤드에서 오는 pk 값으로 설정하면 된다
+                    .map(ex => <ExpenseItem key={Math.random().toString()} expense={ex} />)
             }
         </Card>
         // </div>
