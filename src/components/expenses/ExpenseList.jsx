@@ -47,6 +47,21 @@ const ExpenseList = ({expenses: expenseList}) => {
     // 화살표 함수로 리팩토링
     // const foo = () => expenseList.map(ex => <ExpenseItem expense={ex} />);
 
+    // 화면에 조건부로 랜더링 할 컴포넌트
+    // let content;
+
+    // 해당 년도 지출 항목들을 필터링
+    const filteredExpenses = expenseList
+        .filter(ex => ex.date.getFullYear().toString() === year);
+
+    // if (filteredExpenses.length > 0) {
+    //     content = filteredExpenses
+    //         // map으로 동적 리스트 렌더링을 할 때 key 값을 넣어줘야 한다. 벡앤드에서 오는 pk 값으로 설정하면 된다
+    //         .map(ex => <ExpenseItem key={Math.random().toString()} expense={ex} />)
+    // } else {
+    //     content = <p>아직 해당 연도의 지출 항목이 없습니다.</p>
+    // }
+
     return (
         // <div className='expenses'>
         <Card className='expenses'>
@@ -85,10 +100,17 @@ const ExpenseList = ({expenses: expenseList}) => {
                 // 직접 함수를 안에 넣는 것도 가능하다.
                 // expenseList.map(ex => <ExpenseItem expense={ex} />)
 
-                expenseList
-                    .filter(ex => ex.date.getFullYear().toString() === year)
-                    // map으로 동적 리스트 렌더링을 할 때 key 값을 넣어줘야 한다. 벡앤드에서 오는 pk 값으로 설정하면 된다
-                    .map(ex => <ExpenseItem key={Math.random().toString()} expense={ex} />)
+                // expenseList
+                //     .filter(ex => ex.date.getFullYear().toString() === year)
+                //     // map으로 동적 리스트 렌더링을 할 때 key 값을 넣어줘야 한다. 벡앤드에서 오는 pk 값으로 설정하면 된다
+                //     .map(ex => <ExpenseItem key={Math.random().toString()} expense={ex} />)
+
+                // content
+                filteredExpenses.length > 0
+                ? filteredExpenses
+                        // map으로 동적 리스트 렌더링을 할 때 key 값을 넣어줘야 한다. 벡앤드에서 오는 pk 값으로 설정하면 된다
+                        .map(ex => <ExpenseItem key={Math.random().toString()} expense={ex} />)
+                    : <p>아직 해당 연도의 지출 항목이 없습니다.</p>
             }
         </Card>
         // </div>
