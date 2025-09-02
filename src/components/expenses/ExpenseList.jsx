@@ -2,6 +2,7 @@ import React from 'react';
 import './ExpenseList.css';
 import ExpenseItem from './ExpenseItem.jsx';
 import Card from "../ui/Card.jsx";
+import ExpenseFilter from "./ExpenseFilter.jsx";
 
 const ExpenseList = ({expenses: expenseList}) => {
 
@@ -23,6 +24,12 @@ const ExpenseList = ({expenses: expenseList}) => {
         }
     ];*/
 
+    // ExpenseFilter.jsx에서 선택한 연도 값을 ExpenseList.jsx로 끌어올려서 출력
+    // 함수를 만들어서 전달해줘야 한다.
+    const onFilterChange = (filteredYear) => {
+        console.log(`선택된 연도: ${filteredYear}`);
+    }
+
     return (
         // <div className='expenses'>
         <Card className='expenses'>
@@ -41,6 +48,8 @@ const ExpenseList = ({expenses: expenseList}) => {
             {/*    price={9000}*/}
             {/*    date={new Date(2025, 1, 19)}*/}
             {/*/>*/}
+
+            <ExpenseFilter onChangeFilter={onFilterChange} />
 
             <ExpenseItem expense={expenseList[0]} />
             <ExpenseItem expense={expenseList[1]} />
