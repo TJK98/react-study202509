@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './ExpenseForm.css';
 
-const ExpenseForm = ({ onAdd }) => {
+const ExpenseForm = ({ onAdd, onCancel }) => {
 
     // console.log(`RENDERING`);
 
@@ -163,6 +163,7 @@ const ExpenseForm = ({ onAdd }) => {
                 </div>
             </div>
             <div className='new-expense__actions'>
+                <button type='button' className='cancel-btn' onClick={onCancel}>Cancel</button>
                 <button type='submit'>Add Expense</button>
             </div>
         </form>
