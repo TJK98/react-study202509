@@ -55,7 +55,10 @@ const ExpenseForm = ({ onAdd }) => {
         console.log(`userInput: `, userInput);
 
         // 상위 컴포넌트 (App.jsx -> NewExpense.jsx)가 내려준 onAddExpense 함수를 onSave -> onAdd로 내려 받음
-        onAdd(userInput); // 자신이 갖고 있는 userInput을 부모가 갖고 있는 onAddExpense 함수에게 파라미터로 전달
+        onAdd({
+            ...userInput,
+            date: new Date(userInput.date)
+        }); // 자신이 갖고 있는 userInput을 부모가 갖고 있는 onAddExpense 함수에게 파라미터로 전달
 
         // 입력창 초기화
         // document.querySelectorAll(`input`).forEach($input => $input.value= ``);
