@@ -8,7 +8,12 @@
   <title>리액트 기초 학습</title>
 </head>
 <body>
+<!--  root 안에는 공용으로 쓰는 component만 제어  -->
   <div id="root"></div>
+
+<!--  root 밖에서 공통으로 쓰는 모달이나 튤팁들을 관리  -->
+  <div id="backdrop-root"></div>
+  <div id="modal-overlay-root"></div>
   <script
           type="module"
           src="/src/main.jsx"></script>
