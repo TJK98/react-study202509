@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import styles from './AddUsers.module.css';
 import Card from '../ui/Card';
 import Button from '../ui/Button';
+import ErrorModal from "../ui/Modal/ErrorModal.jsx";
 
 const AddUsers = ({onAddUser}) => {
 
@@ -10,6 +11,10 @@ const AddUsers = ({onAddUser}) => {
         username: '',
         age: '',
     });
+
+    // 에러가 났을 때 에러 데이터를 관리할 상태 변수
+    // error -> { title: 에러 제목, message : 에러 원인 }
+    const [error, setError] = useState(null);
 
     const handleName = (e) => {
         setUserValue({
@@ -27,6 +32,25 @@ const AddUsers = ({onAddUser}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        // 입력값 검증
+        if (!userValue.username.trim()) {
+            // 에러 처리
+            setError({
+                title: `유효하지 않은 입력값`,
+                message: `이름은 필수 입력값 입니다.`
+            })
+            return;
+        }
+
+        if (+userValue.age < 1) {
+            // 에러 처리
+            setError({
+                title: `유효하지 않은 나이 범위`,
+                message: `나이는 0또는 음수가 될 수 없습니다.`
+            })
+            return;
+        }
+
         onAddUser({
             ...userValue,
             id: Math.random().toString(),
@@ -39,25 +63,28 @@ const AddUsers = ({onAddUser}) => {
     };
 
     return (
-        <Card className={styles.input}>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor='username'>이름</label>
-                <input
-                    id='username'
-                    type='text'
-                    value={userValue.username}
-                    onInput={handleName}
-                />
-                <label htmlFor='age'>나이</label>
-                <input
-                    id='age'
-                    type='number'
-                    value={userValue.age}
-                    onInput={handleAge}
-                />
-                <Button type='submit'>가입하기</Button>
-            </form>
-        </Card>
+        <>
+            {error && <ErrorModal title={error.title} message={error.message}/>}
+            <Card className={styles.input}>
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor="username">이름</label>
+                    <input
+                        id="username"
+                        type="text"
+                        value={userValue.username}
+                        onInput={handleName}
+                    />
+                    <label htmlFor="age">나이</label>
+                    <input
+                        id="age"
+                        type="number"
+                        value={userValue.age}
+                        onInput={handleAge}
+                    />
+                    <Button type="submit">가입하기</Button>
+                </form>
+            </Card>
+        </>
     );
 };
 
