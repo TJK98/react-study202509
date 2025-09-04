@@ -1,0 +1,32 @@
+// 트리구주
+// 변수 사용도 가능하다. 연산도 가능하다. css module도 가능하다.
+$my-dark-gray: #343a40;
+$w-basic: 100px;
+
+// header style
+header {
+  padding: 48px 32px 24px;
+  border-bottom: 1px solid #bbb;
+
+  // 그냥 h1이 아닌 header의 h1
+  // header h1
+  h1 {
+    font-size: 36px;
+    color: $my-dark-gray;
+  }
+
+  // header .day
+  .day {
+    margin-top: 4px;
+    color: #868e96;
+    font-size: 21px;
+  }
+  // header .tasks-left
+  .tasks-left {
+    color: #20c997;
+    font-size: 18px;
+    margin-top: 40px;
+    font-weight: 700;
+  }
+
+}
