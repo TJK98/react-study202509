@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
-import './CourseInput.css';
+import styles from './CourseInput.module.css';
 import Button from '../ui/Button';
 
 const CourseInput = ({onAdd}) => {
+
+    console.log(styles);
+    const {'form-control': formControl , invalid} = styles;
 
     // 목표 input에 입력한 상태 관리
     const [enteredText, setEnteredText] = useState(``);
@@ -45,7 +48,9 @@ const CourseInput = ({onAdd}) => {
     return (
         <form onSubmit={submitHandler}>
             {/*null도 false 취급이 되기 때문에 false 일 때만을 명시해줘야 된다.*/}
-            <div className={`form-control ${isValid === false ? 'invalid' : ''}`}>
+            {/*- 대시가 있기 때문에 객체로 받아와야 한고 - 가 없으면 바로 적용 할 수 있다. styles를 안 쓰고 싶으면 styles 객체를 Destructuring 하면 된다.*/}
+            {/*<div className={`${styles['form-control']} ${isValid === false ? 'styles.invalid' : ''}`}>*/}
+            <div className={`${formControl} ${isValid === false ? invalid : ''}`}>
                 {/*null도 false 취급이 되기 때문에 false 일 때만을 명시해줘야 된다.*/}
                 <label
                     // style={{color: isValid !== false ? "black" : "red"}}
