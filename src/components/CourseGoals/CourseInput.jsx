@@ -44,17 +44,20 @@ const CourseInput = ({onAdd}) => {
 
     return (
         <form onSubmit={submitHandler}>
-            <div className="form-control">
+            {/*null도 false 취급이 되기 때문에 false 일 때만을 명시해줘야 된다.*/}
+            <div className={`form-control ${isValid === false ? 'invalid' : ''}`}>
                 {/*null도 false 취급이 되기 때문에 false 일 때만을 명시해줘야 된다.*/}
-                <label style={{color: isValid !== false ? "black" : "red"}}>나의 목표</label>
+                <label
+                    // style={{color: isValid !== false ? "black" : "red"}}
+                >나의 목표</label>
                 <input
                     type="text"
                     onInput={goalInputHandler}
                     value={enteredText} // 양방향 매핑
-                    style={{
-                        background: isValid !== false ? 'transparent' : 'salmon', // null도 false 취급이 되기 때문에 false 일 때만을 명시해줘야 된다.
-                        borderColor: isValid !== false ? 'black' : 'red' // null도 false 취급이 되기 때문에 false 일 때만을 명시해줘야 된다.
-                    }}
+                    // style={{
+                    //     background: isValid !== false ? 'transparent' : 'salmon', // null도 false 취급이 되기 때문에 false 일 때만을 명시해줘야 된다.
+                    //     borderColor: isValid !== false ? 'black' : 'red' // null도 false 취급이 되기 때문에 false 일 때만을 명시해줘야 된다.
+                    // }}
                 />
             </div>
             <Button type="submit">목표 추가하기</Button>
