@@ -5,7 +5,13 @@ import Card from '../ui/Card';
 const UserList = ({users}) => {
     return (
         <Card className={styles.users}>
-            <ul></ul>
+            <ul>
+                {users.map((user) => (
+                    <li key={user.id}>
+                        {user.username} ({user.age}세)
+                    </li>
+                ))}
+            </ul>
         </Card>
     );
 };
