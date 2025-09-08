@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import styles from './AddUsers.module.css';
 import Card from '../ui/Card';
 import Button from '../ui/Button';
@@ -7,30 +7,44 @@ import ErrorModal from "../ui/Modal/ErrorModal.jsx";
 const AddUsers = ({onAddUser}) => {
 
     // 입력값들을 상태관리
-    const [userValue, setUserValue] = useState({
-        username: '',
-        age: '',
-    });
+    // const [userValue, setUserValue] = useState({
+    //     username: '',
+    //     age: '',
+    // });
+
+    // useRef로 태그 기억시키기
+    const usernameRef = useRef()
+    const ageRef = useRef()
 
     // 에러가 났을 때 에러 데이터를 관리할 상태 변수
     // error -> { title: 에러 제목, message : 에러 원인 }
     const [error, setError] = useState(null);
 
-    const handleName = (e) => {
-        setUserValue({
-            ...userValue,
-            username: e.target.value,
-        });
-    };
-    const handleAge = (e) => {
-        setUserValue({
-            ...userValue,
-            age: e.target.value,
-        });
-    };
+    // 실시간으로 상태 관리를 하지 않고 태그를 기억하기 때문에 .value로 바로 꺼낼 수 있다.
+    // const handleName = (e) => {
+    //     setUserValue({
+    //         ...userValue,
+    //         username: e.target.value,
+    //     });
+    // };
+    // const handleAge = (e) => {
+    //     setUserValue({
+    //         ...userValue,
+    //         age: e.target.value,
+    //     });
+    // };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        
+        // input 태그 꺼내기
+        const $usernamdInput = usernameRef.current;
+        const $ageInput = ageRef.current;
+
+        const userValue = {
+            username: $usernamdInput.value,
+            age: $ageInput.value
+        }
 
         // 입력값 검증
         if (!userValue.username.trim()) {
@@ -56,10 +70,14 @@ const AddUsers = ({onAddUser}) => {
             id: Math.random().toString(),
         });
 
-        setUserValue({
-            username: '',
-            age: '',
-        });
+        // setUserValue({
+        //     username: '',
+        //     age: '',
+        // });
+        $usernamdInput.value = ``;
+        $ageInput.value = ``;
+
+        $usernamdInput.focus();
     };
 
     return (
@@ -71,15 +89,17 @@ const AddUsers = ({onAddUser}) => {
                     <input
                         id="username"
                         type="text"
-                        value={userValue.username}
-                        onInput={handleName}
+                        ref={usernameRef}
+                        // value={userValue.username}
+                        // onInput={handleName}
                     />
                     <label htmlFor="age">나이</label>
                     <input
                         id="age"
                         type="number"
-                        value={userValue.age}
-                        onInput={handleAge}
+                        ref={ageRef}
+                        // value={userValue.age}
+                        // onInput={handleAge}
                     />
                     <Button type="submit">가입하기</Button>
                 </form>
